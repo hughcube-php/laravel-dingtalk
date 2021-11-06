@@ -8,7 +8,6 @@
 
 namespace HughCube\Laravel\DingTalk\Log;
 
-use GuzzleHttp\Exception\GuzzleException;
 use HughCube\Laravel\DingTalk\DingTalk;
 use HughCube\Laravel\DingTalk\Robot\Messages\Text;
 use Monolog\Handler\AbstractProcessingHandler;
@@ -35,7 +34,6 @@ class Handler extends AbstractProcessingHandler
 
     /**
      * @param  array  $record
-     * @throws GuzzleException
      */
     protected function write(array $record): void
     {
@@ -43,7 +41,11 @@ class Handler extends AbstractProcessingHandler
             return;
         }
 
-        $message = mb_strcut($record['formatted'], 0, 15000);
-        DingTalk::robot($this->robot)->send(new Text($message));
+        /** Prevent loop errors */
+        try {
+            $message = mb_strcut($record['formatted'], 0, 15000);
+            DingTalk::robot($this->robot)->send(new Text($message));
+        } catch (\Throwable $exception) {
+        }
     }
 }
