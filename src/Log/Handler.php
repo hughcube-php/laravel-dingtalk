@@ -43,7 +43,7 @@ class Handler extends AbstractProcessingHandler
             return;
         }
 
-        $message = new Text(substr($record['formatted'], 0, 19000));
-        DingTalk::robot($this->robot)->send($message);
+        $message = mb_strcut($record['formatted'], 0, 15000);
+        DingTalk::robot($this->robot)->send(new Text($message));
     }
 }
