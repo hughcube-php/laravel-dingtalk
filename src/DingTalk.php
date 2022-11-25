@@ -9,7 +9,7 @@
 namespace HughCube\Laravel\DingTalk;
 
 use HughCube\Laravel\DingTalk\Robot\Client;
-use Illuminate\Support\Facades\Facade as IlluminateFacade;
+use HughCube\Laravel\ServiceSupport\LazyFacade;
 
 /**
  * Class Package.
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Facade as IlluminateFacade;
  * @see \HughCube\Laravel\DingTalk\Manager
  * @see \HughCube\Laravel\DingTalk\ServiceProvider
  */
-class DingTalk extends IlluminateFacade
+class DingTalk extends LazyFacade
 {
     /**
      * Get the registered name of the component.
@@ -29,5 +29,10 @@ class DingTalk extends IlluminateFacade
     public static function getFacadeAccessor(): string
     {
         return 'dingTalk';
+    }
+
+    protected static function registerServiceProvider($app)
+    {
+        $app->register(ServiceProvider::class);
     }
 }

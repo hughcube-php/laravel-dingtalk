@@ -9,9 +9,10 @@
 namespace HughCube\Laravel\DingTalk;
 
 use Illuminate\Foundation\Application as LaravelApplication;
+use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
 
-class ServiceProvider extends \HughCube\Laravel\ServiceSupport\ServiceProvider
+class ServiceProvider extends IlluminateServiceProvider
 {
     /**
      * Boot the provider.
@@ -26,16 +27,13 @@ class ServiceProvider extends \HughCube\Laravel\ServiceSupport\ServiceProvider
         }
     }
 
-    protected function getPackageFacadeAccessor(): string
-    {
-        return DingTalk::getFacadeAccessor();
-    }
-
     /**
-     * @inheritDoc
+     * Register the provider.
      */
-    protected function createPackageFacadeRoot($app)
+    public function register()
     {
-        return new Manager();
+        $this->app->singleton(DingTalk::getFacadeAccessor(), function ($app) {
+            return new Manager();
+        });
     }
 }
