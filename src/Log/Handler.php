@@ -32,10 +32,7 @@ class Handler extends AbstractProcessingHandler
         parent::__construct($level, $bubble);
     }
 
-    /**
-     * @param  array  $record
-     */
-    protected function write(array $record): void
+    protected function write($record): void
     {
         if (!$this->enabled) {
             return;

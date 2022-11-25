@@ -11,9 +11,9 @@
     "require": {
         "php": "8.*",
         "ext-mbstring": "*",
-        "illuminate/support": ">=8.0",
-        "guzzlehttp/guzzle": "6.*|7.*",
-        "monolog/monolog": "^2.3"
+        "guzzlehttp/guzzle": "*",
+        "monolog/monolog": "*",
+        "hughcube/laravel-service-support": "^1.0"
     },
     "require-dev": {
         "laravel/framework": "*",
@@ -32,13 +32,7 @@
             "HughCube\\Laravel\\DingTalk\\Tests\\": "tests"
         }
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "HughCube\\Laravel\\DingTalk\\ServiceProvider"
-            ]
-        }
-    },
+    "extra": {},
     "scripts": {
         "test": "phpunit --verbose --coverage-clover=coverage.clover",
         "phpstan": "phpstan analyse -vvv",

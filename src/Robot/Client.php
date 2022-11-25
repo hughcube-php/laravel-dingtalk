@@ -29,7 +29,6 @@ class Client
     /**
      * @param  array  $config
      */
-    #[Pure]
     public function __construct(array $config)
     {
         $this->config = array_replace_recursive($this->defaultConfig(), $config);
@@ -38,7 +37,6 @@ class Client
     /**
      * @return array
      */
-    #[ArrayShape([])]
     public function defaultConfig(): array
     {
         return [
@@ -81,7 +79,7 @@ class Client
      * @throws GuzzleException
      * @throws Exception
      */
-    public function send(Message $message): void
+    public function send(Message $message)
     {
         $sign = null;
         $timestamp = time() * 1000;
@@ -105,5 +103,7 @@ class Client
         } elseif (0 < $results['errcode']) {
             throw new Exception($results['errmsg'], $results['errcode']);
         }
+
+        return $results;
     }
 }

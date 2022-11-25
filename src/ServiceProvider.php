@@ -9,33 +9,33 @@
 namespace HughCube\Laravel\DingTalk;
 
 use Illuminate\Foundation\Application as LaravelApplication;
-use Illuminate\Log\LogManager;
-use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
 
-class ServiceProvider extends IlluminateServiceProvider
+class ServiceProvider extends \HughCube\Laravel\ServiceSupport\ServiceProvider
 {
     /**
      * Boot the provider.
      */
     public function boot()
     {
-        $source = realpath(dirname(__DIR__).'/config/config.php');
-
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
+            $source = realpath(dirname(__DIR__).'/config/config.php');
             $this->publishes([$source => config_path(sprintf("%s.php", DingTalk::getFacadeAccessor()))]);
         } elseif ($this->app instanceof LumenApplication) {
             $this->app->configure(DingTalk::getFacadeAccessor());
         }
     }
 
-    /**
-     * Register the provider.
-     */
-    public function register()
+    protected function getPackageFacadeAccessor(): string
     {
-        $this->app->singleton(DingTalk::getFacadeAccessor(), function ($app) {
-            return new Manager();
-        });
+        return DingTalk::getFacadeAccessor();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function createPackageFacadeRoot($app)
+    {
+        return new Manager();
     }
 }

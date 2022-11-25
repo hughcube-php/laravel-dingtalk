@@ -66,11 +66,11 @@ class Manager
 
     /**
      * @param  string|null  $key
-     * @param  null  $default
+     * @param  array|null  $default
      * @return array
      * @throws BindingResolutionException
      */
-    protected function getConfigWithDefaults(string|null $key = null, $default = []): array
+    protected function getConfigWithDefaults(string|null $key = null, ?array $default = []): array
     {
         return array_replace_recursive(
             $this->getConfig($key, $default),
