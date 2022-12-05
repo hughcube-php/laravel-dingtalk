@@ -21,7 +21,7 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
             $source = realpath(dirname(__DIR__).'/config/config.php');
-            $this->publishes([$source => config_path(sprintf("%s.php", DingTalk::getFacadeAccessor()))]);
+            $this->publishes([$source => config_path(sprintf('%s.php', DingTalk::getFacadeAccessor()))]);
         } elseif ($this->app instanceof LumenApplication) {
             $this->app->configure(DingTalk::getFacadeAccessor());
         }

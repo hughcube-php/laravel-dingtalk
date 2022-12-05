@@ -17,7 +17,7 @@ use Orchestra\Testbench\TestCase as OrchestraTestCase;
 class TestCase extends OrchestraTestCase
 {
     /**
-     * @param  Application  $app
+     * @param Application $app
      *
      * @return array
      */
@@ -29,7 +29,7 @@ class TestCase extends OrchestraTestCase
     }
 
     /**
-     * @param  Application  $app
+     * @param Application $app
      */
     protected function getEnvironmentSetUp($app)
     {
