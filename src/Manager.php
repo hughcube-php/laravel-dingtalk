@@ -25,7 +25,7 @@ class Manager
     protected array $robots = [];
 
     /**
-     * @param  ContainerContract|null  $container
+     * @param ContainerContract|null $container
      */
     public function __construct(Container $container = null)
     {
@@ -49,10 +49,12 @@ class Manager
     }
 
     /**
-     * @param  string|null  $key
-     * @param  null  $default
-     * @return mixed
+     * @param string|null $key
+     * @param null        $default
+     *
      * @throws BindingResolutionException
+     *
+     * @return mixed
      */
     protected function getConfig(string|null $key = null, $default = null): mixed
     {
@@ -61,14 +63,17 @@ class Manager
 
         $namespace = DingTalk::getFacadeAccessor();
         $key = empty($key) ? $namespace : "$namespace.$key";
+
         return $config->get($key, $default);
     }
 
     /**
-     * @param  string|null  $key
-     * @param  array|null  $default
-     * @return array
+     * @param string|null $key
+     * @param array|null  $default
+     *
      * @throws BindingResolutionException
+     *
+     * @return array
      */
     protected function getConfigWithDefaults(string|null $key = null, ?array $default = []): array
     {
@@ -79,9 +84,11 @@ class Manager
     }
 
     /**
-     * @param  string|null  $name
-     * @return Robot
+     * @param string|null $name
+     *
      * @throws BindingResolutionException
+     *
+     * @return Robot
      */
     public function robot(string|null $name = null): Robot
     {
@@ -89,6 +96,7 @@ class Manager
         if (!isset($this->robots[$name])) {
             $this->robots[$name] = new Robot($this->getConfigWithDefaults("robots.$name"));
         }
+
         return $this->robots[$name];
     }
 }

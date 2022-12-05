@@ -14,8 +14,6 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use HughCube\Laravel\DingTalk\Robot\Messages\Message;
 use Illuminate\Support\Arr;
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
 
 class Client
 {
@@ -27,7 +25,7 @@ class Client
     protected ?HttpClient $httpclient = null;
 
     /**
-     * @param  array  $config
+     * @param array $config
      */
     public function __construct(array $config)
     {
@@ -41,13 +39,13 @@ class Client
     {
         return [
             'http' => [
-                RequestOptions::TIMEOUT => 10.0,
+                RequestOptions::TIMEOUT         => 10.0,
                 RequestOptions::CONNECT_TIMEOUT => 10.0,
-                RequestOptions::READ_TIMEOUT => 10.0,
-                RequestOptions::HTTP_ERRORS => false,
-                RequestOptions::HEADERS => [
+                RequestOptions::READ_TIMEOUT    => 10.0,
+                RequestOptions::HTTP_ERRORS     => false,
+                RequestOptions::HEADERS         => [
                     'User-Agent' => null,
-                ]
+                ],
 
             ],
         ];
@@ -67,7 +65,8 @@ class Client
 
     /**
      * @param $key
-     * @param  null  $default
+     * @param null $default
+     *
      * @return mixed
      */
     protected function get($key, $default = null): mixed
@@ -90,8 +89,8 @@ class Client
         $response = $this->getHttpClient()->post('https://oapi.dingtalk.com/robot/send', [
             RequestOptions::QUERY => [
                 'access_token' => $this->get('access_token'),
-                'timestamp' => $timestamp,
-                'sign' => $sign,
+                'timestamp'    => $timestamp,
+                'sign'         => $sign,
             ],
             RequestOptions::JSON => $message->getMessage(),
         ]);
